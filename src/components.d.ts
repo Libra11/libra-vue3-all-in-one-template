@@ -14,8 +14,10 @@ declare module '@vue/runtime-core' {
 		CustomHeader: typeof import('./components/CustomHeader.vue')['default']
 		ElButton: typeof import('element-plus/es')['ElButton']
 		ElCard: typeof import('element-plus/es')['ElCard']
+		ElCol: typeof import('element-plus/es')['ElCol']
 		ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
 		ElDialog: typeof import('element-plus/es')['ElDialog']
+		ElRow: typeof import('element-plus/es')['ElRow']
 		RouterLink: typeof import('vue-router')['RouterLink']
 		RouterView: typeof import('vue-router')['RouterView']
 	}
