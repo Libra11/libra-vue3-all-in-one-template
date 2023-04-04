@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2023-03-07 14:15:32
- * @LastEditTime: 2023-04-03 18:52:16
+ * @LastEditTime: 2023-04-04 17:15:27
  * @LastEditors: Libra
  * @Description: App.vue
 -->
@@ -25,7 +25,7 @@ const getInfo = async () => {
 		<div class="wrapper no-animation">
 			<custom-header />
 			<el-button type="primary" @click="toggleDark()">Toggle Dark Mode</el-button>
-			<el-button @click="getInfo()">getInfo</el-button>
+			<el-button @click="getInfo()">getInfo2</el-button>
 			<div class="text-lg font-light">test tailwindcss</div>
 		</div>
 	</header>
