@@ -11,6 +11,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+// 指令
+import draggable from '@/directives/draggable'
+
 import '@/style/index.scss'
 import 'element-plus/theme-chalk/el-message.css'
 import '@/style/index.css'
@@ -18,5 +21,7 @@ import '@/style/index.css'
 const app = createApp(App)
 app.use(router)
 app.use(store)
+
+app.directive('draggable', draggable)
 
 app.mount('#app')

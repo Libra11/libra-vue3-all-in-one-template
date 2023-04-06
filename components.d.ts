@@ -1,3 +1,10 @@
+/*
+ * @Author: Libra
+ * @Date: 2023-03-31 11:07:29
+ * @LastEditTime: 2023-04-06 14:39:18
+ * @LastEditors: Libra
+ * @Description:
+ */
 /* eslint-disable */
 /* prettier-ignore */
 // @ts-nocheck
@@ -9,11 +16,16 @@ export {}
 
 declare module '@vue/runtime-core' {
 	export interface GlobalComponents {
+		CustomCalculator: typeof import('./src/components/CustomCalculator.vue')['default']
 		CustomDialog: typeof import('./src/components/CustomDialog.vue')['default']
+		CustomHeader: typeof import('./src/components/CustomHeader.vue')['default']
 		ElButton: typeof import('element-plus/es')['ElButton']
+		ElCard: typeof import('element-plus/es')['ElCard']
 		ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
+		ElCol: typeof import('element-plus/es')['ElCol']
 		ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
 		ElDialog: typeof import('element-plus/es')['ElDialog']
+		ElRow: typeof import('element-plus/es')['ElRow']
 		RouterLink: typeof import('vue-router')['RouterLink']
 		RouterView: typeof import('vue-router')['RouterView']
 	}

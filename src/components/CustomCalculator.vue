@@ -1,128 +1,194 @@
 <!--
  * @Author: Libra
- * @Date: 2023-03-31 16:04:23
- * @LastEditTime: 2023-04-04 16:10:17
+ * @Date: 2023-04-06 13:40:30
+ * @LastEditTime: 2023-04-06 16:55:51
  * @LastEditors: Libra
- * @Description:  计算器
+ * @Description: 计算器 
 -->
 <template>
-	<el-card>
-		<div class="text-right">
-			<div class="break-all" :style="{ fontSize: fontSize + 'px' }">
-				{{ display }}
+	<div class="box-content rounded-md font-['digital']" :class="changeMode ? 'w-[20rem]' : 'w-[32rem]'">
+		<el-button @click="changeModeEvent" class="toggle-el-button">
+			<el-text v-if="changeMode">切换高级模式 ⚈</el-text>
+			<el-text v-else>切换简单模式 ⚆</el-text>
+		</el-button>
+		<div class="flex-br mb-5 h-28 w-full">
+			<el-text class="self-end !text-5xl">{{ current }}</el-text>
+		</div>
+		<div class="grid grid-cols-4 gap-y-3 gap-x-3" v-if="changeMode">
+			<el-button type="info" class="key" @click="press">AC</el-button>
+			<el-button type="info" class="key" @click="press">x 2</el-button>
+			<el-button type="info" class="key" @click="press">%</el-button>
+			<el-button type="primary" class="key" @click="press">÷</el-button>
+			<el-button class="key" @click="press">7</el-button>
+			<el-button class="key" @click="press">8</el-button>
+			<el-button class="key" @click="press">9</el-button>
+			<el-button type="primary" class="key" @click="press">×</el-button>
+			<el-button class="key" @click="press">4</el-button>
+			<el-button class="key" @click="press">5</el-button>
+			<el-button class="key" @click="press">6</el-button>
+			<el-button type="primary" class="key" @click="press">-</el-button>
+			<el-button class="key" @click="press">1</el-button>
+			<el-button class="key" @click="press">2</el-button>
+			<el-button class="key" @click="press">3</el-button>
+			<el-button type="primary" class="key" @click="press">+</el-button>
+			<el-button class="key col-span-2" @click="press">0</el-button>
+			<el-button class="key" @click="press">.</el-button>
+			<el-button type="primary" class="key" @click="press">=</el-button>
+		</div>
+		<div v-else class="flex-c">
+			<div class="mr-6 grid grid-cols-4 gap-y-3 gap-x-3">
+				<el-button class="key" @click="press">√</el-button>
+				<el-button class="key" @click="press">x 2</el-button>
+				<el-button class="key" @click="press">x^</el-button>
+				<el-button class="key" @click="press">°</el-button>
+				<el-button class="key" @click="press">sin</el-button>
+				<el-button class="key" @click="press">cos</el-button>
+				<el-button class="key" @click="press">tan</el-button>
+				<el-button class="key" @click="press">&lt;=</el-button>
+				<el-button class="key" @click="press">log</el-button>
+				<el-button class="key" @click="press">ln</el-button>
+				<el-button class="key" @click="press">e</el-button>
+				<el-button class="key" @click="press">rad</el-button>
+				<el-button class="key" @click="press">±</el-button>
+				<el-button class="key" @click="press">x !</el-button>
+				<el-button class="key" @click="press">(</el-button>
+				<el-button class="key" @click="press">)</el-button>
+				<el-button class="key" @click="press">π</el-button>
+			</div>
+			<div class="grid grid-cols-4 gap-y-3 gap-x-3">
+				<el-button type="info" class="key col-span-2" @click="press">AC</el-button>
+				<el-button type="info" class="key" @click="press">%</el-button>
+				<el-button type="primary" class="key" @click="press">÷</el-button>
+				<el-button class="key" @click="press">7</el-button>
+				<el-button class="key" @click="press">8</el-button>
+				<el-button class="key" @click="press">9</el-button>
+				<el-button type="primary" class="key" @click="press">×</el-button>
+				<el-button class="key" @click="press">4</el-button>
+				<el-button class="key" @click="press">5</el-button>
+				<el-button class="key" @click="press">6</el-button>
+				<el-button type="primary" class="key" @click="press">-</el-button>
+				<el-button class="key" @click="press">1</el-button>
+				<el-button class="key" @click="press">2</el-button>
+				<el-button class="key" @click="press">3</el-button>
+				<el-button type="primary" class="key" @click="press">+</el-button>
+				<el-button class="key col-span-2" @click="press">0</el-button>
+				<el-button class="key" @click="press">.</el-button>
+				<el-button type="primary" class="key" @click="press">=</el-button>
 			</div>
 		</div>
-		<div class="flex">
-			<div class="mr-2">
-				<el-button
-					v-for="button in advancedButtons"
-					:key="button.value"
-					:type="button.type as any"
-					:class="button.class"
-					size="small"
-					@click="handleButtonClick(button.value)"
-				>
-					{{ button.label }}
-				</el-button>
-			</div>
-			<div class="grid grid-cols-4 gap-2">
-				<template v-for="button in basicButtons" :key="button.value">
-					<el-button :type="button.type as any" :class="button.class" size="small" @click="handleButtonClick(button.value)">
-						{{ button.label }}
-					</el-button>
-				</template>
-			</div>
-		</div>
-	</el-card>
+	</div>
 </template>
-
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, type Ref } from 'vue'
 
-const display = ref('')
-const fontSize = ref(32)
-const advancedButtons = computed(() => [
-	{ label: '(', value: '(', type: 'text', class: 'bg-gray-400 text-black' },
-	{ label: ')', value: ')', type: 'text', class: 'bg-gray-400 text-black' },
-	{ label: 'π', value: 'Math.PI', type: 'text', class: 'bg-gray-400 text-black' },
-	{ label: 'e', value: 'Math.E', type: 'text', class: 'bg-gray-400 text-black' },
-	{ label: 'x²', value: 'x^2', type: 'text', class: 'bg-gray-400 text-black' },
-])
-const basicButtons = computed(() => [
-	{ label: 'AC', value: 'AC', type: 'primary' },
-	{ label: '+/-', value: '+/-', type: 'primary' },
-	{ label: '%', value: '%', type: 'primary' },
-	{ label: '÷', value: '/', type: 'primary', class: 'bg-yellow-500' },
-	{ label: '7', value: '7', type: 'text', class: 'bg-gray-700' },
-	{ label: '8', value: '8', type: 'text', class: 'bg-gray-700' },
-	{ label: '9', value: '9', type: 'text', class: 'bg-gray-700' },
-	{ label: '×', value: '*', type: 'primary', class: 'bg-yellow-500' },
-	{ label: '4', value: '4', type: 'text', class: 'bg-gray-700' },
-	{ label: '5', value: '5', type: 'text', class: 'bg-gray-700' },
-	{ label: '6', value: '6', type: 'text', class: 'bg-gray-700' },
-	{ label: '−', value: '-', type: 'primary', class: 'bg-yellow-500' },
-	{ label: '1', value: '1', type: 'text', class: 'bg-gray-700' },
-	{ label: '2', value: '2', type: 'text', class: 'bg-gray-700' },
-	{ label: '3', value: '3', type: 'text', class: 'bg-gray-700' },
-	{ label: '+', value: '+', type: 'primary' },
-	{ label: '0', value: '0', type: 'text', class: 'bg-gray-700' },
-	{ label: '.', value: '.', type: 'text', class: 'bg-gray-700' },
-	{ label: '=', value: '=', type: 'primary', class: 'bg-yellow-500' },
-])
+let current: Ref<any> = ref('')
+let changeMode = ref(true)
 
-const handleButtonClick = (value: string) => {
-	switch (value) {
-		case 'AC':
-			display.value = ''
-			break
-		case '+/-':
-			if (display.value) {
-				display.value = display.value.startsWith('-') ? display.value.substring(1) : '-' + display.value
+let emits = defineEmits(['updateModelValue'])
+
+let press = (event: any) => {
+	const key = event.target.textContent
+	if (
+		key !== '=' &&
+		key !== 'AC' &&
+		key !== '×' &&
+		key !== '÷' &&
+		key !== '√' &&
+		key !== 'x 2' &&
+		key !== '%' &&
+		key !== '<=' &&
+		key !== '±' &&
+		key !== 'sin' &&
+		key !== 'cos' &&
+		key !== 'tan' &&
+		key !== 'log' &&
+		key !== 'ln' &&
+		key !== 'x^' &&
+		key !== 'x !' &&
+		key !== 'π' &&
+		key !== 'e' &&
+		key !== 'rad' &&
+		key !== '°'
+	) {
+		current.value += key
+	} else if (key === '=') {
+		if (current.value.indexOf('^') > -1) {
+			const base = current.value.slice(0, current.value.indexOf('^'))
+			const exponent = current.value.slice(current.value.indexOf('^') + 1)
+			// eslint-disable-next-line no-eval
+			current.value = eval('Math.pow(' + base + ',' + exponent + ')')
+		} else {
+			// eslint-disable-next-line no-eval
+			current.value = eval(current.value)
+		}
+	} else if (key === 'AC') {
+		current.value = ''
+	} else if (key === '×') {
+		current.value += '*'
+	} else if (key === '÷') {
+		current.value += '/'
+	} else if (key === '+') {
+		current.value += '+'
+	} else if (key === '-') {
+		current.value += '-'
+	} else if (key === '±') {
+		if (current.value.charAt(0) === '-') {
+			current.value = current.value.slice(1)
+		} else {
+			current.value = '-' + current.value
+		}
+	} else if (key === '<=') {
+		current.value = current.value.substring(0, current.value.length - 1)
+	} else if (key === '%') {
+		current.value = current.value / 100
+	} else if (key === 'π') {
+		current.value = current.value * Math.PI
+	} else if (key === 'x 2') {
+		// eslint-disable-next-line no-eval
+		current.value = eval(String(current.value * current.value))
+	} else if (key === '√') {
+		current.value = Math.sqrt(current.value)
+	} else if (key === 'sin') {
+		current.value = Math.sin(current.value)
+	} else if (key === 'cos') {
+		current.value = Math.cos(current.value)
+	} else if (key === 'tan') {
+		current.value = Math.tan(current.value)
+	} else if (key === 'log') {
+		current.value = Math.log10(current.value)
+	} else if (key === 'ln') {
+		current.value = Math.log(current.value)
+	} else if (key === 'x^') {
+		current.value += '^'
+	} else if (key === 'x !') {
+		if (current.value === 0) {
+			current.value = '1'
+		} else if (current.value < 0) {
+			current.value = NaN
+		} else {
+			let number = 1
+			for (let i = current.value; i > 0; i--) {
+				number *= i
 			}
-			break
-		case '%':
-			if (display.value) {
-				try {
-					// eslint-disable-next-line no-eval
-					display.value = (eval(display.value) / 100).toString()
-				} catch (error) {
-					display.value = '错误'
-				}
-			}
-			break
-		case '=':
-			if (display.value) {
-				try {
-					// eslint-disable-next-line no-eval
-					display.value = eval(display.value.replace(/×/g, '*').replace(/÷/g, '/')).toString()
-				} catch (error) {
-					display.value = '错误'
-				}
-			}
-			break
-		case 'x^2':
-			if (display.value) {
-				try {
-					// eslint-disable-next-line no-eval
-					display.value = (eval(display.value) ** 2).toString()
-				} catch (error) {
-					display.value = '错误'
-				}
-			}
-			break
-		default:
-			if (value === '/') {
-				display.value += '÷'
-			} else {
-				display.value += value
-			}
-			break
-	}
-	// 动态调整字体大小
-	if (display.value.length > 8) {
-		fontSize.value = 32 - (display.value.length - 8) * 2
-	} else {
-		fontSize.value = 32
+			current.value = number
+		}
+	} else if (key === 'e') {
+		current.value = Math.exp(current.value)
+	} else if (key === 'rad') {
+		current.value = current.value * (Math.PI / 180)
+	} else if (key === '°') {
+		current.value = current.value * (180 / Math.PI)
 	}
 }
+let changeModeEvent = () => {
+	changeMode.value = !changeMode.value
+	emits('updateModelValue', changeMode.value)
+}
 </script>
+
+<style lang="scss">
+.key {
+	margin-left: 0 !important;
+	font-size: 1rem;
+}
+</style>

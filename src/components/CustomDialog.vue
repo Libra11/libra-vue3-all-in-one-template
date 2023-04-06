@@ -1,12 +1,13 @@
 <!--
  * @Author: Libra
  * @Date: 2023-03-30 18:29:45
- * @LastEditTime: 2023-03-31 15:53:16
+ * @LastEditTime: 2023-04-06 16:47:38
  * @LastEditors: Libra
  * @Description: 全局弹窗组件 
 -->
 <template>
 	<el-dialog
+		:draggable="draggable"
 		:title="title"
 		:before-close="handleBeforeClose"
 		:close-on-click-modal="closeOnClickModal"
@@ -15,8 +16,10 @@
 		@update:model-value="updateVisible"
 		@open="handleOpen"
 	>
-		<slot></slot>
-		<template #footer>
+		<div class="flex-c">
+			<slot> </slot>
+		</div>
+		<template #footer v-if="showFooter">
 			<div class="flex-c">
 				<slot name="default-footer" v-if="useDefaultFooter">
 					<el-button type="primary" @click="closeDialog">我知道了</el-button>
@@ -31,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, ref } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps({
 	title: {
@@ -57,6 +60,14 @@ const props = defineProps({
 	confirmDelay: {
 		type: Number,
 		default: 0,
+	},
+	draggable: {
+		type: Boolean,
+		default: false,
+	},
+	showFooter: {
+		type: Boolean,
+		default: true,
 	},
 })
 
