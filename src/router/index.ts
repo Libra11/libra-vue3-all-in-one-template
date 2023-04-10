@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-06 10:21:05
- * @LastEditTime: 2023-03-30 18:46:41
+ * @LastEditTime: 2023-04-10 14:40:08
  * @LastEditors: Libra
  * @Description: 路由
  */
@@ -17,7 +17,29 @@ const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/login',
 		name: 'Login',
-		component: () => import('../views/AboutView.vue'),
+		component: () => import('../views/Login/LoginRouter.vue'),
+		children: [
+			{
+				path: '',
+				name: 'Login',
+				component: () => import('../views/Login/NormalLogin.vue'),
+			},
+			{
+				path: 'public',
+				name: 'PublicLogin',
+				component: () => import('../views/Login/PublicLogin.vue'),
+			},
+			{
+				path: 'qr',
+				name: 'QrLogin',
+				component: () => import('../views/Login/QrLogin.vue'),
+			},
+		],
+	},
+	{
+		path: '/test',
+		name: 'Test',
+		component: () => import('../views/TestView.vue'),
 	},
 ]
 

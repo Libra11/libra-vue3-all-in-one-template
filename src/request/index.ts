@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-22 10:31:03
- * @LastEditTime: 2023-03-30 18:43:21
+ * @LastEditTime: 2023-04-10 15:40:33
  * @LastEditors: Libra
  * @Description: fetch 封装
  */
@@ -39,7 +39,7 @@ export function getOptions(options?: RequestOptions): RequestInit {
 	return { ...defaultOptions, ...options }
 }
 
-export default async <T>(url: string, baseUrl: Base = 'EXAM', option?: RequestInit): Promise<ResponseData<T>> => {
+export default async <T>(url: string, option?: RequestInit, baseUrl: Base = 'EXAM'): Promise<ResponseData<T>> => {
 	const newOption = getOptions(option)
 	const newUrl = config[baseUrl] + url
 	try {

@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-24 09:41:51
- * @LastEditTime: 2023-03-31 14:13:37
+ * @LastEditTime: 2023-04-10 14:09:12
  * @LastEditors: Libra
  * @Description: tailwindcss 配置文件
  */
@@ -17,11 +17,17 @@ module.exports = {
 			backgroundImage: () => ({
 				gradient: 'radial-gradient(transparent 1px,var(--el-bg-color) 1px)',
 			}),
+			backgroundColor: {
+				'primary-color': 'var(--el-color-primary)',
+			},
 			backgroundSize: {
 				1: '0.25rem 0.25rem',
 			},
 			backdropSaturate: {
 				'1/2': '50%',
+			},
+			colors: {
+				'primary-color': 'var(--el-color-primary)',
 			},
 		},
 	},

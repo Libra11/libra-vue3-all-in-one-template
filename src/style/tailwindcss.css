@@ -10,6 +10,9 @@
 	.flex-dc {
 		@apply flex flex-col items-center justify-center;
 	}
+	.flex-db {
+		@apply flex flex-col items-center justify-between;
+	}
 
 	.flex-ac {
 		@apply flex items-center justify-around;

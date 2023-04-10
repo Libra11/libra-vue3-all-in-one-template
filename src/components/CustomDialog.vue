@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2023-03-30 18:29:45
- * @LastEditTime: 2023-04-06 16:47:38
+ * @LastEditTime: 2023-04-07 09:34:37
  * @LastEditors: Libra
  * @Description: 全局弹窗组件 
 -->
@@ -9,6 +9,7 @@
 	<el-dialog
 		:draggable="draggable"
 		:title="title"
+		:modal="showModal"
 		:before-close="handleBeforeClose"
 		:close-on-click-modal="closeOnClickModal"
 		:show-close="showClose"
@@ -66,6 +67,10 @@ const props = defineProps({
 		default: false,
 	},
 	showFooter: {
+		type: Boolean,
+		default: true,
+	},
+	showModal: {
 		type: Boolean,
 		default: true,
 	},

@@ -8,20 +8,25 @@ import '@vue/runtime-core'
 export {}
 
 declare module '@vue/runtime-core' {
-	export interface GlobalComponents {
-		Calculator: typeof import('./components/CustomCalculator.vue')['default']
-		CustomCalculator: typeof import('./components/CustomCalculator.vue')['default']
-		CustomDialog: typeof import('./components/CustomDialog.vue')['default']
-		CustomHeader: typeof import('./components/CustomHeader.vue')['default']
-		ElButto: typeof import('element-plus/es')['ElButto']
-		ElButton: typeof import('element-plus/es')['ElButton']
-		ElCard: typeof import('element-plus/es')['ElCard']
-		ElCol: typeof import('element-plus/es')['ElCol']
-		ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
-		ElDialog: typeof import('element-plus/es')['ElDialog']
-		ElRow: typeof import('element-plus/es')['ElRow']
-		ElText: typeof import('element-plus/es')['ElText']
-		RouterLink: typeof import('vue-router')['RouterLink']
-		RouterView: typeof import('vue-router')['RouterView']
-	}
+  export interface GlobalComponents {
+    Calculator: typeof import('./components/CustomCalculator.vue')['default']
+    CustomCalculator: typeof import('./components/CustomCalculator.vue')['default']
+    CustomDialog: typeof import('./components/CustomDialog.vue')['default']
+    Customer: typeof import('./components/CustomerService.vue')['default']
+    CustomerService: typeof import('./components/CustomerService.vue')['default']
+    CustomFooter: typeof import('./components/CustomFooter.vue')['default']
+    CustomHeader: typeof import('./components/CustomHeader.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
+    ElCol: typeof import('element-plus/es')['ElCol']
+    ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    ElRow: typeof import('element-plus/es')['ElRow']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    ElText: typeof import('element-plus/es')['ElText']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+  }
 }
