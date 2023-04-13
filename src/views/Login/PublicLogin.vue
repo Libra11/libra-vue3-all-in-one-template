@@ -6,11 +6,12 @@
  * @Description: 公开作答
 -->
 <template>
-	<login-layout> 登录页public </login-layout>
+	<login-layout :welcome-info="PUBLIC_WELCOME"> 登录页public </login-layout>
 </template>
 
 <script setup lang="ts">
 import LoginLayout from './layout/LoginLayout.vue'
+import { PUBLIC_WELCOME } from '@/common/config/login'
 </script>
 
 <style scoped></style>

@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-24 09:41:51
- * @LastEditTime: 2023-04-10 14:09:12
+ * @LastEditTime: 2023-04-10 17:45:11
  * @LastEditors: Libra
  * @Description: tailwindcss 配置文件
  */
@@ -28,6 +28,11 @@ module.exports = {
 			},
 			colors: {
 				'primary-color': 'var(--el-color-primary)',
+			},
+			textColor: {
+				primary: 'var(--color-text-primary)',
+				secondary: 'var(--color-text-secondary)',
+				placeholder: 'var(--color-text-placeholder)',
 			},
 		},
 	},

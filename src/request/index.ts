@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-22 10:31:03
- * @LastEditTime: 2023-04-10 15:40:33
+ * @LastEditTime: 2023-04-11 13:44:26
  * @LastEditors: Libra
  * @Description: fetch 封装
  */
@@ -45,7 +45,7 @@ export default async <T>(url: string, option?: RequestInit, baseUrl: Base = 'EXA
 	try {
 		const response = await fetch(newUrl, newOption)
 		const res = await response.json()
-		handleCode(res)
+		if (res.code !== 0) handleCode(res)
 		return res
 	} catch (error) {
 		return Promise.reject(error)

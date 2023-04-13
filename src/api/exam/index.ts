@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-04-10 15:11:56
- * @LastEditTime: 2023-04-10 15:44:26
+ * @LastEditTime: 2023-04-10 18:03:20
  * @LastEditors: Libra
  * @Description:
  */
@@ -33,4 +33,8 @@ function getSimple(data: IShortId): Promise<ResponseData<Exam>> {
 	})
 }
 
-export { getSimple }
+function getTimeByExamId(examId: string) {
+	return fetch(`/exam/time/${examId}`)
+}
+
+export { getSimple, getTimeByExamId }

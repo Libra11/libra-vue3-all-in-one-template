@@ -5,6 +5,10 @@
  * @Description:
  * @FilePath: /libra-vue3-all-in-one-template/electron/preload.js
  */
+const { contextBridge } = require('electron')
+
+contextBridge.exposeInMainWorld('isElectron', true)
+
 window.addEventListener('DOMContentLoaded', () => {
 	const replaceText = (selector, text) => {
 		const element = document.getElementById(selector)

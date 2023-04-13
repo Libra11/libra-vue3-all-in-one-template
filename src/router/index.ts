@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-06 10:21:05
- * @LastEditTime: 2023-04-10 14:40:08
+ * @LastEditTime: 2023-04-12 18:09:37
  * @LastEditors: Libra
  * @Description: 路由
  */
@@ -33,6 +33,23 @@ const routes: Array<RouteRecordRaw> = [
 				path: 'qr',
 				name: 'QrLogin',
 				component: () => import('../views/Login/QrLogin.vue'),
+			},
+		],
+	},
+	{
+		path: '/confirm',
+		name: 'Confirm',
+		component: () => import('../views/Confirm/ConfirmRouter.vue'),
+		children: [
+			{
+				path: 'detect',
+				name: 'Detect',
+				component: () => import('../views/Confirm/ConfirmDetect.vue'),
+			},
+			{
+				path: 'basic',
+				name: 'Basic',
+				component: () => import('../views/Confirm/ConfirmBasic.vue'),
 			},
 		],
 	},
