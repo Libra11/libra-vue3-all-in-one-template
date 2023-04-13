@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2023-03-07 14:15:32
- * @LastEditTime: 2023-04-12 17:17:05
+ * @LastEditTime: 2023-04-13 16:07:31
  * @LastEditors: Libra
  * @Description: App.vue
 -->
@@ -21,8 +21,21 @@ const cssVariables = computed(() => {
 
 <template>
 	<div class="h-screen w-screen" :style="cssVariables">
-		<RouterView />
+		<router-view v-slot="{ Component }">
+			<transition name="fade" mode="out-in">
+				<component :is="Component" :key="$route.path" />
+			</transition>
+		</router-view>
 	</div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.3s;
+}
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+}
+</style>

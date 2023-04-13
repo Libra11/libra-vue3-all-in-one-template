@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { getSimple, getTimeByExamId } from '@/api/exam'
+import { getSimpleApi, getTimeByExamIdApi } from '@/api/exam'
 import { ExamType } from '@/common/const'
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -50,9 +50,9 @@ const props = defineProps<{
 }>()
 
 onMounted(async () => {
-	await getSimpleInfo()
+	await getSimple()
 	setDocumentTitle()
-	await getExamTime()
+	await getTimeByExamId()
 	isLoaded.value = true
 })
 
@@ -107,11 +107,11 @@ const computedData = computed(() => {
 /**
  * 获取基本信息(公司简称、考试名称、考试场景(无token))
  */
-async function getSimpleInfo() {
+async function getSimple() {
 	const route = useRoute()
 	const { shortId } = route.query
 	if (!shortId || shortId === 'undefined') return
-	const res = await getSimple({
+	const res = await getSimpleApi({
 		examShortId: shortId as string,
 	})
 	if (res.code === 0) {
@@ -140,10 +140,10 @@ const startEnd = computed(() => {
 	const end = time.examEndAt.substring(0, time.examEndAt.length - 3).replace(/-/g, '/')
 	return start + '-' + end
 })
-async function getExamTime() {
+async function getTimeByExamId() {
 	const examId = state.examUuid
 	if (!examId) return
-	const res = await getTimeByExamId(examId)
+	const res = await getTimeByExamIdApi(examId)
 	if (res.code === 0) {
 		Object.assign(time, res.data)
 		getTime()

@@ -26,15 +26,15 @@ type Exam = {
 	userExamName: string
 }
 // 获取shortname和logo
-function getSimple(data: IShortId): Promise<ResponseData<Exam>> {
+function getSimpleApi(data: IShortId): Promise<ResponseData<Exam>> {
 	return fetch(`/exam/info/simple`, {
 		method: 'POST',
 		body: JSON.stringify(data),
 	})
 }
 
-function getTimeByExamId(examId: string) {
+function getTimeByExamIdApi(examId: string) {
 	return fetch(`/exam/time/${examId}`)
 }
 
-export { getSimple, getTimeByExamId }
+export { getSimpleApi, getTimeByExamIdApi }
