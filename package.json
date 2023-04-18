@@ -38,6 +38,7 @@
 	},
 	"dependencies": {
 		"pinia": "^2.0.33",
+		"trtc-js-sdk": "^4.15.6",
 		"vue": "^3.2.47",
 		"vue-router": "^4.1.6"
 	},

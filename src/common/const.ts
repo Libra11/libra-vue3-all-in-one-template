@@ -21,3 +21,23 @@ export enum ExamDevice {
 	H5 = 1, // H5
 	PC = 2, // PC
 }
+
+/**
+ * 摄像头监控参数
+ */
+export const CameraMonitorParam = {
+	width: 640,
+	height: 480,
+	frameRate: 30,
+	bitrate: 300,
+}
+
+/**
+ * 屏幕监控参数
+ */
+export const ScreenMonitorParam = {
+	width: 1920,
+	height: 1080,
+	frameRate: 30,
+	bitrate: 1000,
+}

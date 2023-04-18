@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-24 09:41:51
- * @LastEditTime: 2023-04-10 17:45:11
+ * @LastEditTime: 2023-04-17 09:38:52
  * @LastEditors: Libra
  * @Description: tailwindcss 配置文件
  */
@@ -19,6 +19,7 @@ module.exports = {
 			}),
 			backgroundColor: {
 				'primary-color': 'var(--el-color-primary)',
+				color: 'var(--el-bg-color)',
 			},
 			backgroundSize: {
 				1: '0.25rem 0.25rem',

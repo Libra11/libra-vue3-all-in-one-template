@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-10 14:15:23
- * @LastEditTime: 2023-04-13 14:39:19
+ * @LastEditTime: 2023-04-17 16:45:55
  * @LastEditors: Libra
  * @Description: 登录页
 -->
@@ -21,7 +21,7 @@
 			<div class="mb-8 text-center text-xl font-bold text-primary-color">用户登录</div>
 			<el-form :model="form" :rules="rules" ref="loginForm" class="font-bold">
 				<el-form-item prop="username">
-					<el-input size="large" v-model="form.username" placeholder="请输入用户名"></el-input>
+					<el-input size="large" :disabled="!form.username.startsWith('localhost')" v-model="form.username" placeholder="请输入用户名"></el-input>
 				</el-form-item>
 				<el-form-item prop="password">
 					<el-input size="large" :show-password="true" v-model="form.password" placeholder="请输入密码"></el-input>
@@ -29,7 +29,7 @@
 				<el-form-item class="relative" prop="verify">
 					<el-input size="large" v-model="form.verify" placeholder="请输入验证码"></el-input>
 					<img
-						class="absolute top-1/2 right-1 h-8 -translate-y-1/2 cursor-pointer border-l border-primary-color pl-1"
+						class="absolute top-1/2 right-1 h-6 -translate-y-1/2 cursor-pointer border-l border-primary-color pl-1"
 						@click="getVerifyCode"
 						:src="verifyCode"
 						alt=""
@@ -58,6 +58,8 @@ import { getVerifyCodeApi, loginApi } from '@/api/candidate'
 import { ExamDevice } from '@/common/const'
 import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
+import { UserStore } from '@/store/modules/user'
+import router from '@/router'
 
 onMounted(async () => {
 	await getVerifyCode()
@@ -67,7 +69,7 @@ onMounted(async () => {
  * 表单
  */
 const form = reactive({
-	username: '',
+	username: getUserName() || '',
 	password: '',
 	verify: '',
 	key: '',
@@ -115,6 +117,12 @@ async function login() {
 	})
 	if (res.code === 0) {
 		// 登录成功
+		const userStore = UserStore()
+		userStore.setToken(res.data.token)
+		router.push('/confirm')
+	} else {
+		form.verify = ''
+		await getVerifyCode()
 	}
 }
 
@@ -133,6 +141,11 @@ function onSubmit(formEl: FormInstance | undefined) {
 			return false
 		}
 	})
+}
+function getUserName() {
+	const UserName = window.location.href.split('//')[1].split('.')[0]
+	if (!UserName) return
+	return UserName
 }
 </script>
 

@@ -6200,6 +6200,11 @@ tree-kill@^1.2.2:
   resolved "https://registry.npmmirror.com/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
 
+trtc-js-sdk@^4.15.6:
+  version "4.15.6"
+  resolved "https://registry.npmmirror.com/trtc-js-sdk/-/trtc-js-sdk-4.15.6.tgz#dd7542653e52c0663ae534622136fc6aadc66ad6"
+  integrity sha512-/VmBQcxzFkZ8qGzb7OUYp5l/n5JXXWjzSJrL+U50TmvbN+q+jmd+itzsFERUV+PiuZ2+Fdcd7lnWZqvLtiFKtA==
+
 truncate-utf8-bytes@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmmirror.com/truncate-utf8-bytes/-/truncate-utf8-bytes-1.0.2.tgz#405923909592d56f78a5818434b0b78489ca5f2b"

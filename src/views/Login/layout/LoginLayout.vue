@@ -1,35 +1,37 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-10 14:41:27
- * @LastEditTime: 2023-04-13 09:40:12
+ * @LastEditTime: 2023-04-18 09:57:28
  * @LastEditors: Libra
  * @Description: 登录layout
 -->
 <template>
-	<custom-header :logo="state.companyLogo" />
-	<el-row class="flex-c m-auto h-full bg-cover pb-20" :class="[isDark ? 'bg-dark' : 'bg-light']">
-		<el-col :span="12" class="flex-c">
-			<div v-if="isLoaded && !isElectron" class="animate__animated animate__fadeIn">
-				<p class="text-4xl font-bold">{{ title }}</p>
-				<div v-if="!!startEnd" class="my-5 text-primary">{{ computedData.timeTitle }}：{{ startEnd }}</div>
-				<p class="my-5 text-2xl text-primary">{{ welcomeInfo.subTitle }}{{ state.scenario }}!</p>
-				<p class="text-sm leading-7 text-primary" v-for="item in computedData.finalTips" :key="item">{{ item }}</p>
-				<p class="my-5 font-bold" v-if="time.secondToStart > 0">
-					距离开考还有：<span v-if="startTime" class="animate__animated animate__fadeIn text-xl font-bold leading-5 text-primary-color"
-						>{{ startTime }}
-					</span>
-				</p>
-			</div>
-			<div v-if="isLoaded && isElectron" class="animate__animated animate__fadeIn">
-				<p class="mb-5 text-4xl font-bold">{{ electronInfo.title }}</p>
-				<p class="text-sm leading-7 text-primary" v-for="item in electronInfo.tips" :key="item">{{ item }}</p>
-			</div>
-		</el-col>
-		<el-col :span="12" class="flex-c">
-			<slot />
-		</el-col>
-	</el-row>
-	<custom-footer :shortName="state.companyShortName" />
+	<div>
+		<custom-header :logo="state.companyLogo" />
+		<el-row class="flex-c m-auto h-screen bg-cover pb-20" :class="[isDark ? 'bg-dark' : 'bg-light']">
+			<el-col :span="12" class="flex-c">
+				<div v-if="isLoaded && !isElectron" class="animate__animated animate__fadeIn">
+					<p class="text-4xl font-bold">{{ title }}</p>
+					<div v-if="!!startEnd" class="my-5 text-primary">{{ computedData.timeTitle }}：{{ startEnd }}</div>
+					<p class="my-5 text-2xl text-primary">{{ welcomeInfo.subTitle }}{{ state.scenario }}!</p>
+					<p class="text-sm leading-7 text-primary" v-for="item in computedData.finalTips" :key="item">{{ item }}</p>
+					<p class="my-5 font-bold" v-if="time.secondToStart > 0">
+						距离开考还有：<span v-if="startTime" class="animate__animated animate__fadeIn text-xl font-bold leading-5 text-primary-color"
+							>{{ startTime }}
+						</span>
+					</p>
+				</div>
+				<div v-if="isLoaded && isElectron" class="animate__animated animate__fadeIn">
+					<p class="mb-5 text-4xl font-bold">{{ electronInfo.title }}</p>
+					<p class="text-sm leading-7 text-primary" v-for="item in electronInfo.tips" :key="item">{{ item }}</p>
+				</div>
+			</el-col>
+			<el-col :span="12" class="flex-c">
+				<slot />
+			</el-col>
+		</el-row>
+		<custom-footer :shortName="state.companyShortName" />
+	</div>
 </template>
 
 <script setup lang="ts">
@@ -40,6 +42,7 @@ import { useRoute } from 'vue-router'
 import CustomHeader from '@/components/CustomHeader.vue'
 import CustomFooter from '@/components/CustomFooter.vue'
 import { isDark } from '@/composables/useDark'
+import { UserStore } from '@/store/modules/user'
 
 const props = defineProps<{
 	welcomeInfo: {
@@ -49,7 +52,11 @@ const props = defineProps<{
 	}
 }>()
 
+const userStore = UserStore()
+
 onMounted(async () => {
+	// 清空 token
+	userStore.$reset()
 	await getSimple()
 	setDocumentTitle()
 	await getTimeByExamId()
@@ -134,7 +141,7 @@ const time = reactive({
 	secondToStart: 0,
 })
 let startTime = ref('')
-let timer: any = null
+let timer: ReturnType<typeof setInterval>
 const startEnd = computed(() => {
 	const start = time.examStartAt.substring(0, time.examStartAt.length - 3).replace(/-/g, '/')
 	const end = time.examEndAt.substring(0, time.examEndAt.length - 3).replace(/-/g, '/')

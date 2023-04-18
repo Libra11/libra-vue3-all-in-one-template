@@ -1,12 +1,12 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-06 17:54:20
- * @LastEditTime: 2023-04-10 14:48:30
+ * @LastEditTime: 2023-04-15 16:47:50
  * @LastEditors: Libra
  * @Description: 客服答疑 
 -->
 <template>
-	<div class="flex h-[35rem] flex-col">
+	<div class="flex h-[35rem] flex-col text-sm">
 		<div ref="messageList" class="mb-4 flex-grow space-y-4 overflow-y-auto p-4">
 			<template v-for="message in messages" :key="message.id">
 				<div :class="['animate__animated animate__fadeIn', message.isMine ? 'text-right' : 'text-left']">

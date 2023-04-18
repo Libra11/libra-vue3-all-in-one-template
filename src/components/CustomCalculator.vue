@@ -1,12 +1,12 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-06 13:40:30
- * @LastEditTime: 2023-04-06 16:55:51
+ * @LastEditTime: 2023-04-17 18:07:39
  * @LastEditors: Libra
  * @Description: 计算器 
 -->
 <template>
-	<div class="box-content rounded-md font-['digital']" :class="changeMode ? 'w-[20rem]' : 'w-[32rem]'">
+	<div class="box-content rounded-md font-['digital']">
 		<el-button @click="changeModeEvent" class="toggle-el-button">
 			<el-text v-if="changeMode">切换高级模式 ⚈</el-text>
 			<el-text v-else>切换简单模式 ⚆</el-text>

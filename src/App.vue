@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2023-03-07 14:15:32
- * @LastEditTime: 2023-04-13 16:07:31
+ * @LastEditTime: 2023-04-17 17:25:24
  * @LastEditors: Libra
  * @Description: App.vue
 -->
@@ -9,6 +9,8 @@
 import { RouterView } from 'vue-router'
 import { isDark } from './composables/useDark'
 import { computed } from 'vue'
+import CustomLayout from './layout/CustomLayout.vue'
+import { useToken } from './composables/useToken'
 
 const cssVariables = computed(() => {
 	return {
@@ -20,7 +22,14 @@ const cssVariables = computed(() => {
 </script>
 
 <template>
-	<div class="h-screen w-screen" :style="cssVariables">
+	<custom-layout class="h-screen w-screen" :style="cssVariables" v-if="useToken().value">
+		<router-view v-slot="{ Component }">
+			<transition name="fade" mode="out-in">
+				<component :is="Component" :key="$route.path" />
+			</transition>
+		</router-view>
+	</custom-layout>
+	<div class="h-screen w-screen" :style="cssVariables" v-else>
 		<router-view v-slot="{ Component }">
 			<transition name="fade" mode="out-in">
 				<component :is="Component" :key="$route.path" />

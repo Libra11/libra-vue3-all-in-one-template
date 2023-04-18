@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2023-03-30 18:29:45
- * @LastEditTime: 2023-04-07 09:34:37
+ * @LastEditTime: 2023-04-17 18:06:40
  * @LastEditors: Libra
  * @Description: 全局弹窗组件 
 -->
@@ -79,7 +79,7 @@ const props = defineProps({
 const emit = defineEmits(['update:model-value', 'confirm', 'cancel'])
 
 const disabledTime = ref(0)
-let confirmTimer: any = null
+let confirmTimer: ReturnType<typeof setInterval>
 const handleOpen = () => {
 	if (props.confirmDelay <= 0) return
 	disabledTime.value = props.confirmDelay

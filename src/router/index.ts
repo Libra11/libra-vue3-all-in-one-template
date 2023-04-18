@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-06 10:21:05
- * @LastEditTime: 2023-04-12 18:09:37
+ * @LastEditTime: 2023-04-17 17:54:34
  * @LastEditors: Libra
  * @Description: 路由
  */
@@ -51,7 +51,17 @@ const routes: Array<RouteRecordRaw> = [
 				name: 'Basic',
 				component: () => import('../views/Confirm/ConfirmBasic.vue'),
 			},
+			{
+				path: 'exam',
+				name: 'Exam',
+				component: () => import('../views/Confirm/ConfirmExam.vue'),
+			},
 		],
+	},
+	{
+		path: '/question',
+		name: 'Question',
+		component: () => import('../views/Question/TestQuestion.vue'),
 	},
 	{
 		path: '/test',

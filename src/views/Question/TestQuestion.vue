@@ -1,15 +1,18 @@
 <!--
  * @Author: Libra
- * @Date: 2023-04-12 17:30:22
- * @LastEditTime: 2023-04-17 17:50:15
+ * @Date: 2023-04-17 17:47:23
+ * @LastEditTime: 2023-04-17 17:55:43
  * @LastEditors: Libra
- * @Description: 个人信息页
+ * @Description: 
 -->
 <template>
-	<el-button type="primary" @click="handleClick">to exam</el-button>
+	<detect-layout>
+		<el-button type="primary" @click="handleClick">to exam</el-button>
+	</detect-layout>
 </template>
 
 <script setup lang="ts">
+import DetectLayout from '@/layout/DetectLayout.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

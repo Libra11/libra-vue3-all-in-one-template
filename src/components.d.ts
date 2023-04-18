@@ -32,6 +32,7 @@ declare module '@vue/runtime-core' {
 		ElSketonItem: typeof import('element-plus/es')['ElSketonItem']
 		ElSwitch: typeof import('element-plus/es')['ElSwitch']
 		ElText: typeof import('element-plus/es')['ElText']
+		NoFixedDialog: typeof import('./components/NoFixedDialog.vue')['default']
 		RouterLink: typeof import('vue-router')['RouterLink']
 		RouterView: typeof import('vue-router')['RouterView']
 	}

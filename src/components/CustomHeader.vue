@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2023-03-31 11:27:46
- * @LastEditTime: 2023-04-12 19:11:00
+ * @LastEditTime: 2023-04-17 14:41:28
  * @LastEditors: Libra
  * @Description:  自定义头部组件
 -->
@@ -14,17 +14,17 @@
 		<el-col class="flex-bc" :span="12">
 			<span></span>
 			<!-- 切换白天黑夜模式 -->
-			<el-card v-if="true" class="h-10 w-20 cursor-pointer !rounded-full border" @click="toggleDark()">
+			<!-- <el-card v-if="true" class="h-10 w-20 cursor-pointer !rounded-full border" @click="toggleDark()">
 				<el-icon :class="!isDark && 'bg-primary-color !text-white'" class="icon"><Sunny /></el-icon>
 				<el-icon :class="isDark && 'bg-primary-color !text-white'" class="icon"><Moon /></el-icon>
-			</el-card>
+			</el-card> -->
 		</el-col>
 	</el-row>
 </template>
 
 <script setup lang="ts">
-import { toggleDark, isDark } from '@/composables/useDark'
-import { Sunny, Moon } from '@element-plus/icons-vue'
+// import { toggleDark, isDark } from '@/composables/useDark'
+// import { Sunny, Moon } from '@element-plus/icons-vue'
 import { file_host } from '@/api/config'
 
 defineProps<{
