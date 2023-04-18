@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-04-10 15:11:56
- * @LastEditTime: 2023-04-17 18:15:27
+ * @LastEditTime: 2023-04-18 14:26:02
  * @LastEditors: Libra
  * @Description: exam 相关接口
  */
@@ -146,4 +146,22 @@ function jobInfoApi(): Promise<ResponseData<IJobInfo>> {
 	return fetch(`/exam/job/info`)
 }
 
-export { getSimpleApi, getTimeByExamIdApi, examInfoApi, jobInfoApi }
+/**
+ * 获取考试时间
+ */
+export interface ITime {
+	examDuration: number
+	examStartAt: string
+	examEndAt: string
+	candidateStartedAt: string | null
+	candidateFinishedAt: string
+	countdownBegin: number
+	secondRemain: number
+	secondToStart: number
+	timestamp: number
+}
+function getTimeApi(): Promise<ResponseData<ITime>> {
+	return fetch(`/exam/time`)
+}
+
+export { getSimpleApi, getTimeByExamIdApi, examInfoApi, jobInfoApi, getTimeApi }

@@ -1,14 +1,14 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-10 14:41:27
- * @LastEditTime: 2023-04-18 09:57:28
+ * @LastEditTime: 2023-04-18 16:42:36
  * @LastEditors: Libra
  * @Description: 登录layout
 -->
 <template>
 	<div>
-		<custom-header :logo="state.companyLogo" />
-		<el-row class="flex-c m-auto h-screen bg-cover pb-20" :class="[isDark ? 'bg-dark' : 'bg-light']">
+		<custom-header :headerInfo="{ logo: state.companyLogo, avatar: '' }" :timeInfo="{ displayTime: '', isExamStart: false }" />
+		<el-row class="flex-c bg-img m-auto h-screen bg-cover pb-20">
 			<el-col :span="12" class="flex-c">
 				<div v-if="isLoaded && !isElectron" class="animate__animated animate__fadeIn">
 					<p class="text-4xl font-bold">{{ title }}</p>
@@ -41,7 +41,6 @@ import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import CustomHeader from '@/components/CustomHeader.vue'
 import CustomFooter from '@/components/CustomFooter.vue'
-import { isDark } from '@/composables/useDark'
 import { UserStore } from '@/store/modules/user'
 
 const props = defineProps<{

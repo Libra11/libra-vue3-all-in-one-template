@@ -30,11 +30,9 @@ html {
 	}
 }
 
-.bg-light {
-	background-image: url('@/assets/images/light_bg.png');
-}
-.bg-dark {
-	background-image: url('@/assets/images/dark_bg.png');
+.bg-img {
+	background-image: url('@/assets/images/bg.png');
+	background-size: cover;
 }
 
 @layer components {

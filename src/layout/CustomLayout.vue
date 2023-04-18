@@ -1,14 +1,14 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-12 17:28:30
- * @LastEditTime: 2023-04-17 17:58:54
+ * @LastEditTime: 2023-04-18 17:39:44
  * @LastEditors: Libra
  * @Description: 考前确认 layout
 -->
 <template>
-	<div>
-		<custom-header :logo="logo" />
-		<div class="h-screen pt-20" v-if="!initLoading">
+	<div v-if="!initLoading">
+		<custom-header :isStart="isExamStart" :time="displayTime" />
+		<div class="bg-img h-screen pt-20">
 			<slot></slot>
 		</div>
 		<custom-footer v-if="isShowFooter" short-name="Libra" />
@@ -18,12 +18,13 @@
 <script setup lang="ts">
 import CustomHeader from '@/components/CustomHeader.vue'
 import CustomFooter from '@/components/CustomFooter.vue'
-import { onMounted, ref, watch, type Ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { examInfoApi, jobInfoApi } from '@/api/exam'
+import { examInfoApi, getTimeApi, jobInfoApi } from '@/api/exam'
 import { candidateInfoApi } from '@/api/candidate'
 import router from '@/router'
 import { useInfoStore } from '@/store/modules/info'
+import { formatSeconds } from '@/utils'
 
 const isShowFooter = ref(true)
 const route = useRoute()
@@ -38,29 +39,32 @@ watch(
 
 onMounted(async () => {
 	await initData()
+	await initTime()
+	initLoading.value = false
+})
+
+onBeforeUnmount(() => {
+	timeWorker.postMessage('stop')
 })
 
 /**
  * 获取初始化数据
  */
 const initLoading = ref(true)
-const logo: Ref<string> = ref('')
-let isDeviceCheck = false
+let isNeedDeviceCheck = false
 async function initData() {
 	await examInfo()
 	await candidateInfo()
 	await jobInfo()
-	initLoading.value = false
 	if (route.name !== 'Confirm') return
-	router.push(isDeviceCheck ? '/confirm/device' : '/confirm/basic')
+	router.push(isNeedDeviceCheck ? '/confirm/device' : '/confirm/basic')
 }
 async function examInfo() {
 	const res = await examInfoApi()
 	if (res.code === 0) {
-		const result = res.data
-		infoStore.setExamInfo(result)
-		logo.value = result.coverInfo.logo
-		isDeviceCheck = result.isDeviceCheck
+		const { isDeviceCheck } = res.data
+		infoStore.setExamInfo(res.data)
+		isNeedDeviceCheck = isDeviceCheck
 	}
 }
 async function candidateInfo() {
@@ -73,6 +77,56 @@ async function jobInfo() {
 	const res = await jobInfoApi()
 	if (res.code === 0) {
 		infoStore.setJobInfo(res.data)
+	}
+}
+
+/**
+ * 时间相关
+ */
+let isExamStart = ref(false)
+let displayTime = ref('')
+let secondToStart = 0
+let secondRemain = 0
+const timeWorker = new Worker(new URL('@/worker/time.worker.ts', import.meta.url), {
+	type: 'module',
+})
+
+async function getTime() {
+	const res = await getTimeApi()
+	if (res.code === 0) {
+		return res.data
+	}
+}
+
+async function initTime() {
+	const time = await getTime()
+	if (!time) return
+	secondToStart = time.secondToStart
+	secondRemain = time.secondRemain
+	// set isPractice
+	infoStore.setIsPractice(secondToStart > 0)
+	timeWorker.postMessage('start')
+	timeWorker.onmessage = () => {
+		handleCountDown()
+	}
+}
+
+function handleCountDown() {
+	if (secondToStart > 0) {
+		// 考试未开始
+		secondToStart--
+		displayTime.value = formatSeconds(secondToStart)
+		isExamStart.value = false
+	} else if (secondRemain > 0) {
+		// 考试进行中
+		secondRemain--
+		displayTime.value = formatSeconds(secondRemain)
+		isExamStart.value = true
+	} else {
+		// 考试结束
+		displayTime.value = ''
+		isExamStart.value = false
+		timeWorker.postMessage('stop')
 	}
 }
 </script>
