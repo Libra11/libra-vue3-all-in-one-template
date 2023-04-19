@@ -1,21 +1,12 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-12 17:30:22
- * @LastEditTime: 2023-04-17 17:50:15
+ * @LastEditTime: 2023-04-19 14:41:08
  * @LastEditors: Libra
  * @Description: 个人信息页
 -->
-<template>
-	<el-button type="primary" @click="handleClick">to exam</el-button>
-</template>
+<template>basic</template>
 
-<script setup lang="ts">
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-function handleClick() {
-	router.push('/confirm/exam')
-}
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>

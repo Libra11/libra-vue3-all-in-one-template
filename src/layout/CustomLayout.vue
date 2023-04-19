@@ -1,14 +1,14 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-12 17:28:30
- * @LastEditTime: 2023-04-18 17:39:44
+ * @LastEditTime: 2023-04-19 16:14:31
  * @LastEditors: Libra
  * @Description: 考前确认 layout
 -->
 <template>
 	<div v-if="!initLoading">
 		<custom-header :isStart="isExamStart" :time="displayTime" />
-		<div class="bg-img h-screen pt-20">
+		<div class="bg-img h-screen px-10 pt-20">
 			<slot></slot>
 		</div>
 		<custom-footer v-if="isShowFooter" short-name="Libra" />
@@ -22,7 +22,6 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { examInfoApi, getTimeApi, jobInfoApi } from '@/api/exam'
 import { candidateInfoApi } from '@/api/candidate'
-import router from '@/router'
 import { useInfoStore } from '@/store/modules/info'
 import { formatSeconds } from '@/utils'
 
@@ -51,20 +50,15 @@ onBeforeUnmount(() => {
  * 获取初始化数据
  */
 const initLoading = ref(true)
-let isNeedDeviceCheck = false
 async function initData() {
 	await examInfo()
 	await candidateInfo()
 	await jobInfo()
-	if (route.name !== 'Confirm') return
-	router.push(isNeedDeviceCheck ? '/confirm/device' : '/confirm/basic')
 }
 async function examInfo() {
 	const res = await examInfoApi()
 	if (res.code === 0) {
-		const { isDeviceCheck } = res.data
 		infoStore.setExamInfo(res.data)
-		isNeedDeviceCheck = isDeviceCheck
 	}
 }
 async function candidateInfo() {

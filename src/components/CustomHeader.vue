@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2023-03-31 11:27:46
- * @LastEditTime: 2023-04-18 16:37:54
+ * @LastEditTime: 2023-04-19 16:15:27
  * @LastEditors: Libra
  * @Description:  自定义头部组件
 -->
@@ -13,10 +13,10 @@
 		</el-col>
 		<el-col class="flex-bc" :span="12">
 			<span></span>
-			<div class="flex-bc" v-show="isStart">
+			<div class="flex-bc" v-show="time">
 				<div v-show="time" class="animate__animated animate__fadeIn flex-dc w-20">
-					<div class="text-primary">
-						<span v-if="isStart">考试剩余</span>
+					<div class="text-sm text-primary">
+						<span v-if="isStart">距考试结束</span>
 						<span v-else>距考试开始</span>
 					</div>
 					<span class="font-['digital'] text-2xl text-primary-color">{{ time }}</span>
