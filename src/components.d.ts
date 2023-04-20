@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
 		CustomerService: typeof import('./components/CustomerService.vue')['default']
 		CustomFooter: typeof import('./components/CustomFooter.vue')['default']
 		CustomHeader: typeof import('./components/CustomHeader.vue')['default']
+		DeviceDetect: typeof import('./components/DeviceDetect.vue')['default']
 		ElAvatar: typeof import('element-plus/es')['ElAvatar']
 		ElButton: typeof import('element-plus/es')['ElButton']
 		ElCard: typeof import('element-plus/es')['ElCard']

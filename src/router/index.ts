@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-06 10:21:05
- * @LastEditTime: 2023-04-18 18:56:59
+ * @LastEditTime: 2023-04-19 17:35:00
  * @LastEditors: Libra
  * @Description: 路由
  */
@@ -39,24 +39,7 @@ const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/confirm',
 		name: 'Confirm',
-		component: () => import('../views/Confirm/ConfirmRouter.vue'),
-		children: [
-			{
-				path: 'detect',
-				name: 'Detect',
-				component: () => import('../views/Confirm/ConfirmDetect.vue'),
-			},
-			{
-				path: 'basic',
-				name: 'Basic',
-				component: () => import('../views/Confirm/ConfirmBasic.vue'),
-			},
-			{
-				path: 'exam',
-				name: 'Exam',
-				component: () => import('../views/Confirm/ConfirmExam.vue'),
-			},
-		],
+		component: () => import('../views/Confirm/layout/ConfirmLayout.vue'),
 	},
 	{
 		path: '/question',

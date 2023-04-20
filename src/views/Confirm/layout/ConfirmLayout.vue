@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-13 09:43:21
- * @LastEditTime: 2023-04-19 17:28:24
+ * @LastEditTime: 2023-04-19 18:46:33
  * @LastEditors: Libra
  * @Description: confirm layout
 -->
@@ -16,7 +16,7 @@
 					<el-step :title="item.title" v-for="(item, index) in stepsList" :key="index"></el-step>
 				</el-steps>
 			</el-col>
-			<el-col :span="20" class="flex-c p-5">
+			<el-col :span="20" class="flex items-start justify-center">
 				<div class="animate__animated animate__fadeIn w-[42rem] rounded bg-white p-5 opacity-80 shadow-md">
 					<div v-for="(item, index) in components" :key="index">
 						<component :is="item.layout" v-if="item.name === currentLayout" />
