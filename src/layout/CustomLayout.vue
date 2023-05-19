@@ -1,17 +1,17 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-12 17:28:30
- * @LastEditTime: 2023-04-19 16:14:31
+ * @LastEditTime: 2023-05-04 10:25:59
  * @LastEditors: Libra
  * @Description: 考前确认 layout
 -->
 <template>
-	<div v-if="!initLoading">
-		<custom-header :isStart="isExamStart" :time="displayTime" />
+	<div v-if="!initLoading" class="text-primary">
+		<custom-header :isStart="isExamStart" :time="displayTime" :has-right="true" />
 		<div class="bg-img h-screen px-10 pt-20">
 			<slot></slot>
 		</div>
-		<custom-footer v-if="isShowFooter" short-name="Libra" />
+		<custom-footer v-if="isShowFooter" :short-name="shortName" />
 	</div>
 </template>
 
@@ -50,6 +50,7 @@ onBeforeUnmount(() => {
  * 获取初始化数据
  */
 const initLoading = ref(true)
+const shortName = ref('')
 async function initData() {
 	await examInfo()
 	await candidateInfo()
@@ -59,6 +60,7 @@ async function examInfo() {
 	const res = await examInfoApi()
 	if (res.code === 0) {
 		infoStore.setExamInfo(res.data)
+		shortName.value = res.data.coverInfo!.name
 	}
 }
 async function candidateInfo() {

@@ -1,13 +1,13 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-06 10:21:05
- * @LastEditTime: 2023-04-19 17:35:00
+ * @LastEditTime: 2023-05-19 15:14:23
  * @LastEditors: Libra
  * @Description: 路由
  */
 import whiteList from '@/utils/whiteList'
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import { useToken } from '@/composables/useToken'
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
+import { useShortId, useToken } from '@/composables/useUser'
 
 const routes: Array<RouteRecordRaw> = [
 	{
@@ -42,6 +42,16 @@ const routes: Array<RouteRecordRaw> = [
 		component: () => import('../views/Confirm/layout/ConfirmLayout.vue'),
 	},
 	{
+		path: '/welcome',
+		name: 'Welcome',
+		component: () => import('../views/Electron/WelcomeView.vue'),
+	},
+	{
+		path: '/detect',
+		name: 'Detect',
+		component: () => import('../views/Electron/DetectView.vue'),
+	},
+	{
 		path: '/question',
 		name: 'Question',
 		component: () => import('../views/Question/TestQuestion.vue'),
@@ -54,13 +64,14 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-	history: createWebHistory(import.meta.env.BASE_URL),
+	history: createWebHashHistory(),
 	routes,
 })
 
 router.beforeEach((to, from, next) => {
 	// 检查 token 是否存在
 	const token = useToken().value
+	const shortId = useShortId().value
 	// 检查路由名称是否在白名单中
 	if (whiteList.includes(to.name as string)) {
 		next()
@@ -69,7 +80,7 @@ router.beforeEach((to, from, next) => {
 		next()
 	} else {
 		// 如果 token 不存在且不在白名单中，重定向到首页
-		next(`/login?redirect=${to.path}`)
+		next(`/login?shortId=${shortId}&redirect=${to.path}`)
 	}
 })
 

@@ -1,13 +1,13 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-10 14:41:27
- * @LastEditTime: 2023-04-18 16:42:36
+ * @LastEditTime: 2023-05-04 10:42:37
  * @LastEditors: Libra
  * @Description: 登录layout
 -->
 <template>
 	<div>
-		<custom-header :headerInfo="{ logo: state.companyLogo, avatar: '' }" :timeInfo="{ displayTime: '', isExamStart: false }" />
+		<custom-header :login-logo="state.companyLogo" />
 		<el-row class="flex-c bg-img m-auto h-screen bg-cover pb-20">
 			<el-col :span="12" class="flex-c">
 				<div v-if="isLoaded && !isElectron" class="animate__animated animate__fadeIn">
@@ -117,6 +117,7 @@ async function getSimple() {
 	const route = useRoute()
 	const { shortId } = route.query
 	if (!shortId || shortId === 'undefined') return
+	userStore.setShortId(shortId as string)
 	const res = await getSimpleApi({
 		examShortId: shortId as string,
 	})

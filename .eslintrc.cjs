@@ -1,7 +1,7 @@
 /*
  * @Author: Libra
  * @Date: 2023-03-07 18:03:36
- * @LastEditTime: 2023-04-13 09:39:24
+ * @LastEditTime: 2023-05-19 14:32:15
  * @LastEditors: Libra
  * @Description:
  */
@@ -38,7 +38,6 @@ module.exports = {
 		'no-unused-vars': 'off',
 		'@typescript-eslint/no-unused-vars': 'error',
 		eqeqeq: ['error', 'always'],
-		'no-console': 'error',
 		'no-debugger': 'error',
 		'no-alert': 'error',
 		'no-else-return': 'error',

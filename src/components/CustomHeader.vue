@@ -1,7 +1,7 @@
 <!--
  * @Author: Libra
  * @Date: 2023-03-31 11:27:46
- * @LastEditTime: 2023-04-19 16:15:27
+ * @LastEditTime: 2023-05-04 10:34:46
  * @LastEditors: Libra
  * @Description:  自定义头部组件
 -->
@@ -11,22 +11,27 @@
 			<img v-if="logo" class="animate__animated animate__fadeIn h-16" :src="`${file_host}${logo}`" alt="" />
 			<img v-else-if="logo === null" class="h-16" src="@/assets/images/default_logo.png" alt="" />
 		</el-col>
-		<el-col class="flex-bc" :span="12">
+		<el-col class="flex-bc" :span="12" v-if="hasRight">
 			<span></span>
 			<div class="flex-bc" v-show="time">
 				<div v-show="time" class="animate__animated animate__fadeIn flex-dc w-20">
 					<div class="text-sm text-primary">
 						<span v-if="isStart">距考试结束</span>
-						<span v-else>距考试开始</span>
+						<span v-else>开考倒计时</span>
 					</div>
 					<span class="font-['digital'] text-2xl text-primary-color">{{ time }}</span>
 				</div>
 				<div class="animate__animated animate__fadeIn flex-bc">
-					<el-avatar v-if="avatar" size="large" :src="`${file_host}${avatar}`" />
-					<el-avatar v-else size="large" :icon="UserFilled" />
-					<div class="ml-2 flex flex-col items-start justify-center">
-						<span>{{ realName }}</span>
-						<span class="cursor-pointer text-xs">退出</span>
+					<div class="mx-4">
+						<el-avatar v-if="avatar" size="large" :src="`${file_host}${avatar}`" />
+						<el-avatar v-else size="large" :icon="UserFilled" />
+					</div>
+					<div class="flex h-10 flex-col items-end justify-between">
+						<span class="text-sm">{{ realName }}</span>
+						<div class="cursor-pointer text-success-color">
+							<i class="iconfont icontuichu mr-1 align-bottom"></i>
+							<span class="text-xs">退出</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -45,8 +50,9 @@
 import { file_host } from '@/api/config'
 import { useInfoStore } from '@/store/modules/info'
 import { UserFilled } from '@element-plus/icons-vue'
+import { onMounted, ref, type Ref } from 'vue'
 
-defineProps({
+const props = defineProps({
 	isStart: {
 		type: Boolean,
 		default: false,
@@ -55,14 +61,29 @@ defineProps({
 		type: String,
 		default: '',
 	},
+	hasRight: {
+		type: Boolean,
+		default: false,
+	},
+	loginLogo: {
+		type: String,
+		default: '',
+	},
 })
 
-const infoStore = useInfoStore()
-const candidateInfo = infoStore.getCandidateInfo
-const examInfo = infoStore.getExamInfo
+let logo: string | null = null
+let realName: Ref<string | undefined> = ref('')
+let avatar: Ref<string | undefined> = ref(undefined)
+onMounted(() => {
+	const infoStore = useInfoStore()
+	const candidateInfo = infoStore.getCandidateInfo
+	const examInfo = infoStore.getExamInfo
 
-const { avatar, realName } = candidateInfo
-const logo = examInfo.coverInfo?.logo
+	realName.value = candidateInfo.realName
+	avatar.value = candidateInfo.avatar
+	let logo = examInfo.coverInfo?.logo
+	if (!logo) logo = props.loginLogo
+})
 </script>
 
 <style scoped lang="scss">

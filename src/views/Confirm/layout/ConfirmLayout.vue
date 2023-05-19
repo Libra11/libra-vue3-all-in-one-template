@@ -1,13 +1,13 @@
 <!--
  * @Author: Libra
  * @Date: 2023-04-13 09:43:21
- * @LastEditTime: 2023-04-19 18:46:33
+ * @LastEditTime: 2023-04-20 11:45:53
  * @LastEditors: Libra
  * @Description: confirm layout
 -->
 <template>
 	<div class="flex h-full flex-col">
-		<span class="py-10 text-2xl font-bold"
+		<span class="py-10 text-2xl font-bold text-black"
 			>{{ confirmTitle }} <span class="text-base font-normal text-secondary">{{ scenario }}</span></span
 		>
 		<el-row class="flex w-full flex-1">
@@ -21,8 +21,6 @@
 					<div v-for="(item, index) in components" :key="index">
 						<component :is="item.layout" v-if="item.name === currentLayout" />
 					</div>
-					<el-button type="primary" @click="prev">上一步</el-button>
-					<el-button type="primary" @click="next">下一步</el-button>
 				</div>
 			</el-col>
 		</el-row>
@@ -31,8 +29,18 @@
 
 <script setup lang="ts">
 import { useInfoStore } from '@/store/modules/info'
-import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, onMounted, ref, watch, provide } from 'vue'
 import ls from '@/utils/localStorage'
+
+// provide next and prev
+provide('confirm', {
+	next: () => {
+		next()
+	},
+	prev: () => {
+		prev()
+	},
+})
 
 onMounted(() => {
 	initLayout()

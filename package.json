@@ -3,6 +3,7 @@
 	"version": "0.0.0",
 	"private": true,
 	"main": "electron/electron.js",
+	"author": "Libra",
 	"config": {
 		"commitizen": {
 			"path": "node_modules/cz-customizable"
@@ -34,13 +35,16 @@
 		"electron:dev": "concurrently -k \"cross-env BROWSER=none yarn dev\" \"yarn electron\"",
 		"electron:builder": "electron-builder",
 		"build:for:electron": "vue-tsc --noEmit && cross-env ELECTRON=true vite build",
+		"postinstall": "electron-builder install-app-deps",
 		"app:build": "yarn build:for:electron && yarn electron:builder"
 	},
 	"dependencies": {
 		"pinia": "^2.0.33",
 		"trtc-js-sdk": "^4.15.6",
 		"vue": "^3.2.47",
-		"vue-router": "^4.1.6"
+		"vue-router": "^4.1.6",
+		"electron-updater": "^4.3.8",
+		"electron-notarize": "^1.1.1"
 	},
 	"devDependencies": {
 		"@rushstack/eslint-patch": "^1.2.0",
@@ -59,6 +63,7 @@
 		"commitlint-config-cz": "^0.13.3",
 		"concurrently": "^7.6.0",
 		"cross-env": "^7.0.3",
+		"cssnano": "^6.0.1",
 		"cypress": "^12.7.0",
 		"cz-conventional-changelog": "^3.3.0",
 		"cz-customizable": "^7.0.0",
@@ -94,9 +99,15 @@
 		"yarn": "^1.22.19"
 	},
 	"build": {
-		"appId": "com.libra.www",
-		"productName": "Libra",
+		"appId": "com.iguokao.apps",
+		"productName": "国考云新",
 		"copyright": "Copyright © 2023 ${author}",
+		"publish": [
+			{
+				"provider": "generic",
+				"url": ""
+			}
+		],
 		"mac": {
 			"category": "public.app-category.utilities"
 		},
@@ -106,7 +117,8 @@
 		},
 		"files": [
 			"dist/**/*",
-			"electron/**/*"
+			"electron/**/*",
+			"electron_dist/**/*"
 		],
 		"directories": {
 			"buildResources": "assets",
