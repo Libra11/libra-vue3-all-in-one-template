@@ -2,7 +2,7 @@
 	"name": "libra-vue3-all-in-one-template",
 	"version": "0.0.0",
 	"private": true,
-	"main": "electron/electron.js",
+	"main": "dist-electron/main.js",
 	"config": {
 		"commitizen": {
 			"path": "node_modules/cz-customizable"
@@ -17,6 +17,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "run-p type-check build-only",
+		"build-electron": "run-p type-check build-only && electron-builder",
 		"preview": "vite preview",
 		"test:no-watch": "vitest --no-watch",
 		"test:unit": "vitest",
@@ -37,7 +38,11 @@
 		"app:build": "yarn build:for:electron && yarn electron:builder"
 	},
 	"dependencies": {
+		"@electron/remote": "^2.1.2",
+		"cssnano": "^6.1.2",
 		"pinia": "^2.0.33",
+		"vite-plugin-electron": "^0.28.4",
+		"vite-plugin-electron-renderer": "^0.14.5",
 		"vue": "^3.2.47",
 		"vue-router": "^4.1.6"
 	},
@@ -92,23 +97,51 @@
 		"yarn": "^1.22.19"
 	},
 	"build": {
-		"appId": "com.libra.www",
-		"productName": "Libra",
-		"copyright": "Copyright © 2023 ${author}",
-		"mac": {
-			"category": "public.app-category.utilities"
-		},
-		"nsis": {
-			"oneClick": false,
-			"allowToChangeInstallationDirectory": true
+		"appId": "libra",
+		"productName": "公众号",
+		"asar": false,
+		"extraResources": [],
+		"directories": {
+			"buildResources": "assets",
+			"output": "release/${version}"
 		},
 		"files": [
 			"dist/**/*",
-			"electron/**/*"
+			"package.json",
+			"dist-electron/**/*"
 		],
-		"directories": {
-			"buildResources": "assets",
-			"output": "dist_electron"
+		"mac": {
+			"artifactName": "${productName}_${version}.${ext}",
+			"target": [
+				"dmg"
+			]
+		},
+		"win": {
+			"icon": "./resources/win/icon.ico",
+			"target": [
+				{
+					"target": "nsis",
+					"arch": [
+						"x64"
+					]
+				}
+			],
+			"artifactName": "exam.${ext}"
+		},
+		"publish": [
+			{
+				"provider": "generic",
+				"url": ""
+			}
+		],
+		"nsis": {
+			"oneClick": false,
+			"perMachine": false,
+			"allowToChangeInstallationDirectory": true,
+			"deleteAppDataOnUninstall": false,
+			"installerIcon": "./resources/win/icon.ico",
+			"uninstallerIcon": "./resources/win/icon.ico",
+			"installerHeaderIcon": "./resources/win/icon.ico"
 		}
 	}
 }
